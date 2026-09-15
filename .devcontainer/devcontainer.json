@@ -1,0 +1,17 @@
+{
+  "name": "Cakue Flutter Dev",
+  "image": "ghcr.io/cirruslabs/flutter:3.32.0",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/workspace,type=bind",
+  "workspaceFolder": "/workspace",
+  "forwardPorts": [8080],
+  "postCreateCommand": "flutter pub get",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "Dart-Code.dart-code",
+        "Dart-Code.flutter"
+      ]
+    }
+  },
+  "remoteUser": "root"
+}

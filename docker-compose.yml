@@ -1,0 +1,86 @@
+services:
+
+  # ─────────────────────────────────────────────────
+  # Production: Flutter build web → Nginx
+  # Akses: http://localhost:8080
+  # ─────────────────────────────────────────────────
+  cakue-web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: cakue-web
+    ports:
+      - "8080:80"
+    depends_on:
+      - cakue-api
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────────────
+  # Backend: Dart/Shelf API Server → MySQL
+  # Akses internal: http://cakue-api:8000
+  # Akses host: http://localhost:8000
+  # ─────────────────────────────────────────────────
+  cakue-api:
+    build:
+      context: ./server
+      dockerfile: Dockerfile
+    container_name: cakue-api
+    ports:
+      - "8000:8000"
+    environment:
+      MYSQL_HOST: cakue-db
+      MYSQL_PORT: "3306"
+      MYSQL_USER: cakue_user
+      MYSQL_PASSWORD: cakue_password
+      MYSQL_DB: cakue_db
+      PORT: "8000"
+    depends_on:
+      cakue-db:
+        condition: service_healthy
+    restart: unless-stopped
+
+  # ─────────────────────────────────────────────────
+  # Database: MySQL 8.0 Server
+  # Akses Port: 3306
+  # Auto-initialize: init.sql
+  # ─────────────────────────────────────────────────
+  cakue-db:
+    image: mysql:8.0
+    container_name: cakue-db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root_password
+      MYSQL_DATABASE: cakue_db
+      MYSQL_USER: cakue_user
+      MYSQL_PASSWORD: cakue_password
+    ports:
+      - "3306:3306"
+    volumes:
+      - mysql_data:/var/lib/mysql
+      - ./init.sql:/docker-entrypoint-initdb.d/init.sql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "localhost", "-u", "cakue_user", "-pcakue_password"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+      start_period: 30s
+
+  # ─────────────────────────────────────────────────
+  # Development: Container Flutter interaktif
+  # ─────────────────────────────────────────────────
+  flutter:
+    image: ghcr.io/cirruslabs/flutter:3.32.0
+    container_name: cakue-flutter-dev
+    working_dir: /workspace
+    volumes:
+      - .:/workspace
+      - flutter_pub_cache:/root/.pub-cache
+    environment:
+      - PUB_CACHE=/root/.pub-cache
+    command: ["tail", "-f", "/dev/null"]
+    profiles:
+      - dev
+
+volumes:
+  mysql_data:
+  flutter_pub_cache:

@@ -1,0 +1,18 @@
+targets:
+  $default:
+    builders:
+      drift_dev:
+        options:
+          store_date_time_values_as_text: false
+          sql:
+            dialect: sqlite
+            options:
+              version: "3.39"
+      freezed:
+        generate_for:
+          - lib/domain/entities/**
+      riverpod_generator:
+        generate_for:
+          - lib/di/**
+          - lib/presentation/**
+          - lib/core/router/**
