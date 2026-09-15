@@ -97,7 +97,7 @@ class AccountsScreen extends ConsumerWidget {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
+                              const Text(
                                 'Daftar Rekening',
                                 style: AppTextStyles.h6,
                               ),
@@ -252,7 +252,7 @@ class _EmptyAccounts extends StatelessWidget {
         const SizedBox(height: 40),
         const Text('🏦', style: TextStyle(fontSize: 64)),
         const SizedBox(height: 16),
-        Text('Belum ada rekening', style: AppTextStyles.h5),
+        const Text('Belum ada rekening', style: AppTextStyles.h5),
         const SizedBox(height: 8),
         Text(
           'Tambahkan rekening bank, dompet tunai,\natau e-wallet kamu',
@@ -383,7 +383,7 @@ class _AddAccountSheetState extends State<_AddAccountSheet> {
                 ),
               ),
               const SizedBox(height: 16),
-              Text('Tambah Rekening Baru', style: AppTextStyles.h5),
+              const Text('Tambah Rekening Baru', style: AppTextStyles.h5),
               const SizedBox(height: 20),
 
               // Name
@@ -401,7 +401,7 @@ class _AddAccountSheetState extends State<_AddAccountSheet> {
               const SizedBox(height: 16),
 
               // Type Selector
-              Text('Tipe Rekening', style: AppTextStyles.labelMedium),
+              const Text('Tipe Rekening', style: AppTextStyles.labelMedium),
               const SizedBox(height: 8),
               Wrap(
                 spacing: 8,

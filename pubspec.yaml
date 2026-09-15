@@ -60,6 +60,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   flutter_svg: ^2.0.17
   universal_io: ^2.3.1
+  iconoir_flutter: ^7.5.0
 
 dev_dependencies:
   flutter_test:

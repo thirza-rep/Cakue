@@ -29,11 +29,11 @@ class AppTheme {
         onSurfaceVariant: AppColors.textSecondary,
         outline: AppColors.border,
         outlineVariant: AppColors.borderLight,
-        shadow: Colors.black.withOpacity(0.08),
+        shadow: Colors.black.withValues(alpha: 0.08),
         inverseSurface: AppColors.forestDark,
         onInverseSurface: Colors.white,
         inversePrimary: AppColors.coralLight,
-        surfaceTint: AppColors.coral.withOpacity(0.04),
+        surfaceTint: AppColors.coral.withValues(alpha: 0.04),
       ),
       fontFamily: 'Plus Jakarta Sans',
       textTheme: AppTextStyles.textTheme,
@@ -44,7 +44,7 @@ class AppTheme {
         scrolledUnderElevation: 0,
         centerTitle: false,
         titleTextStyle: AppTextStyles.h4.copyWith(color: AppColors.textPrimary),
-        iconTheme: IconThemeData(color: AppColors.textPrimary),
+        iconTheme: const IconThemeData(color: AppColors.textPrimary),
         systemOverlayStyle: const SystemUiOverlayStyle(
           statusBarColor: Colors.transparent,
           statusBarIconBrightness: Brightness.dark,
@@ -69,7 +69,7 @@ class AppTheme {
         elevation: 0,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
-          side: BorderSide(color: AppColors.borderLight, width: 1),
+          side: const BorderSide(color: AppColors.borderLight, width: 1),
         ),
         margin: EdgeInsets.zero,
       ),
@@ -82,15 +82,15 @@ class AppTheme {
         ),
         enabledBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.borderLight, width: 1),
+          borderSide: const BorderSide(color: AppColors.borderLight, width: 1),
         ),
         focusedBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.coral, width: 2),
+          borderSide: const BorderSide(color: AppColors.coral, width: 2),
         ),
         errorBorder: OutlineInputBorder(
           borderRadius: BorderRadius.circular(16),
-          borderSide: BorderSide(color: AppColors.error, width: 1),
+          borderSide: const BorderSide(color: AppColors.error, width: 1),
         ),
         contentPadding: const EdgeInsets.symmetric(horizontal: 20, vertical: 16),
         labelStyle: AppTextStyles.bodyMedium.copyWith(color: AppColors.textSecondary),
@@ -117,7 +117,7 @@ class AppTheme {
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.coral,
-          side: BorderSide(color: AppColors.coral, width: 1.5),
+          side: const BorderSide(color: AppColors.coral, width: 1.5),
           shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
           padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 16),
           textStyle: AppTextStyles.labelLarge,
@@ -131,12 +131,12 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
         side: BorderSide.none,
       ),
-      dividerTheme: DividerThemeData(
+      dividerTheme: const DividerThemeData(
         color: AppColors.borderLight,
         thickness: 1,
         space: 1,
       ),
-      floatingActionButtonTheme: FloatingActionButtonThemeData(
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.coral,
         foregroundColor: Colors.white,
         elevation: 4,
@@ -189,11 +189,11 @@ class AppTheme {
         onSurfaceVariant: AppColors.darkTextSecondary,
         outline: AppColors.darkBorder,
         outlineVariant: AppColors.darkBorderLight,
-        shadow: Colors.black.withOpacity(0.4),
+        shadow: Colors.black.withValues(alpha: 0.4),
         inverseSurface: AppColors.background,
         onInverseSurface: AppColors.textPrimary,
         inversePrimary: AppColors.coralDark,
-        surfaceTint: AppColors.coral.withOpacity(0.06),
+        surfaceTint: AppColors.coral.withValues(alpha: 0.06),
       ),
       fontFamily: 'Plus Jakarta Sans',
       textTheme: AppTextStyles.textTheme.apply(

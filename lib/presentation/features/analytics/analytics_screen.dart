@@ -109,7 +109,7 @@ class _AnalyticsScreenState extends ConsumerState<AnalyticsScreen>
                   const SizedBox(height: AppSpacing.xxl),
 
                   // Pie chart placeholder
-                  SectionHeader(title: 'Pengeluaran per Kategori'),
+                  const SectionHeader(title: 'Pengeluaran per Kategori'),
                   const SizedBox(height: AppSpacing.lg),
                   _CategoryPieChart().animate().fadeIn(delay: 200.ms),
 
@@ -245,7 +245,7 @@ class _StatCard extends StatelessWidget {
         borderRadius: BorderRadius.circular(AppRadius.xl),
         boxShadow: [
           BoxShadow(
-            color: gradient.colors.last.withOpacity(0.2),
+            color: gradient.colors.last.withValues(alpha: 0.2),
             blurRadius: 12,
             offset: const Offset(0, 4),
           ),
@@ -295,10 +295,10 @@ class _CategoryPieChart extends StatelessWidget {
 
     // Placeholder data - akan diisi dari monthly_summaries
     final data = [
-      _PieData('Makanan', 45, AppColors.coral),
-      _PieData('Transport', 20, AppColors.blue),
-      _PieData('Belanja', 15, AppColors.sage),
-      _PieData('Hiburan', 12, AppColors.sageDark),
+      const _PieData('Makanan', 45, AppColors.coral),
+      const _PieData('Transport', 20, AppColors.blue),
+      const _PieData('Belanja', 15, AppColors.sage),
+      const _PieData('Hiburan', 12, AppColors.sageDark),
       _PieData('Lainnya', 8, theme.colorScheme.onSurfaceVariant),
     ];
 

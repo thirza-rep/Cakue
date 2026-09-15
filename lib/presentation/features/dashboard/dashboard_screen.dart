@@ -357,7 +357,7 @@ class _BalanceStat extends StatelessWidget {
           Container(
             padding: const EdgeInsets.all(6),
             decoration: BoxDecoration(
-              color: color.withOpacity(0.2),
+              color: color.withValues(alpha: 0.2),
               borderRadius: BorderRadius.circular(8),
             ),
             child: Icon(icon, color: color, size: 14),
@@ -479,7 +479,7 @@ class _MiniCard extends StatelessWidget {
           Text(
             subtitle,
             style: AppTextStyles.caption.copyWith(
-              color: theme.colorScheme.onSurfaceVariant.withOpacity(0.8),
+              color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.8),
             ),
           ),
         ],
@@ -578,7 +578,7 @@ class _QuickActionBtn extends StatelessWidget {
                 width: 36,
                 height: 36,
                 decoration: BoxDecoration(
-                  color: color.withOpacity(0.15),
+                  color: color.withValues(alpha: 0.15),
                   shape: BoxShape.circle,
                 ),
                 child: Icon(icon, color: color, size: 18),

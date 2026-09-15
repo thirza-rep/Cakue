@@ -68,6 +68,7 @@ class SettingsScreen extends ConsumerWidget {
                                     // Make sure PIN is set if enabling
                                     final pin = await BiometricAuthService.getCustomPin();
                                     if (pin == null || pin.isEmpty) {
+                                      if (!context.mounted) return;
                                       final pinSet = await BiometricAuthService.showPinPadDialog(
                                         context,
                                         title: 'Buat PIN Baru',
@@ -98,6 +99,7 @@ class SettingsScreen extends ConsumerWidget {
                            final currentPin = await BiometricAuthService.getCustomPin();
                            if (currentPin != null && currentPin.isNotEmpty) {
                              // verify current first
+                             if (!context.mounted) return;
                              final verified = await BiometricAuthService.showPinPadDialog(
                                context,
                                title: 'Masukkan PIN Lama',
@@ -201,10 +203,10 @@ class SettingsScreen extends ConsumerWidget {
 
                   const SizedBox(height: AppSpacing.xxl),
 
-                  _SettingsSection(
+                  const _SettingsSection(
                     title: 'TENTANG',
                     children: [
-                      const _SettingsTile(
+                      _SettingsTile(
                         icon: Icons.info_rounded,
                         iconColor: AppColors.textTertiary,
                         title: 'Versi Aplikasi',

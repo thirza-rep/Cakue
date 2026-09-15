@@ -176,14 +176,14 @@ class _BudgetOverviewCard extends ConsumerWidget {
       padding: const EdgeInsets.all(AppSpacing.xl),
       decoration: BoxDecoration(
         gradient: LinearGradient(
-          colors: [AppColors.coral, AppColors.coral.withOpacity(0.7)],
+          colors: [AppColors.coral, AppColors.coral.withValues(alpha: 0.7)],
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
         borderRadius: BorderRadius.circular(AppRadius.xxl),
         boxShadow: [
           BoxShadow(
-            color: AppColors.coral.withOpacity(0.3),
+            color: AppColors.coral.withValues(alpha: 0.3),
             blurRadius: 20,
             offset: const Offset(0, 8),
           ),
@@ -195,7 +195,7 @@ class _BudgetOverviewCard extends ConsumerWidget {
           Text(
             'Total Anggaran Bulan Ini',
             style: AppTextStyles.bodySmall.copyWith(
-              color: Colors.white.withOpacity(0.8),
+              color: Colors.white.withValues(alpha: 0.8),
             ),
           ),
           const SizedBox(height: AppSpacing.xs),
@@ -239,7 +239,7 @@ class _OverviewStat extends StatelessWidget {
       children: [
         Text(label,
             style: AppTextStyles.bodySmall
-                .copyWith(color: color.withOpacity(0.7))),
+                .copyWith(color: color.withValues(alpha: 0.7))),
         Text(value,
             style: AppTextStyles.bodyMedium
                 .copyWith(color: color, fontWeight: FontWeight.w700)),
@@ -285,7 +285,7 @@ class _BudgetCard extends StatelessWidget {
         border: Border.all(color: theme.colorScheme.outlineVariant),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 8,
             offset: const Offset(0, 2),
           ),
@@ -300,7 +300,7 @@ class _BudgetCard extends StatelessWidget {
                 width: 40,
                 height: 40,
                 decoration: BoxDecoration(
-                  color: AppColors.coral.withOpacity(0.12),
+                  color: AppColors.coral.withValues(alpha: 0.12),
                   borderRadius: BorderRadius.circular(AppRadius.md),
                 ),
                 child: const Icon(Icons.category_rounded,
@@ -381,7 +381,7 @@ class _EmptyBudget extends StatelessWidget {
               width: 80,
               height: 80,
               decoration: BoxDecoration(
-                color: AppColors.coral.withOpacity(0.1),
+                color: AppColors.coral.withValues(alpha: 0.1),
                 borderRadius: BorderRadius.circular(AppRadius.xxl),
               ),
               child: const Icon(Icons.account_balance_wallet_rounded,

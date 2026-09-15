@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:go_router/go_router.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 
 import '../../../core/theme/app_colors.dart';
@@ -39,6 +38,7 @@ class _LockScreenState extends ConsumerState<LockScreen> {
       if (!authenticated && mounted) {
         final pin = await BiometricAuthService.getCustomPin();
         if (pin != null && pin.isNotEmpty) {
+          if (!mounted) return;
           authenticated = await BiometricAuthService.showPinPadDialog(
             context,
             title: 'Masukkan PIN',

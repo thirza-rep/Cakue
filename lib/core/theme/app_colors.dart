@@ -5,28 +5,28 @@ import 'package:flutter/material.dart';
 class AppColors {
   AppColors._();
 
-  // === PRIMARY: Coral / Salmon ===
-  static const Color coral = Color(0xFFFD7F65);
-  static const Color coralLight = Color(0xFFFFEDE9);
-  static const Color coralMedium = Color(0xFFFFBFB3);
-  static const Color coralDark = Color(0xFFD45A42);
+  // === PRIMARY: Dark Azure (formerly Coral) ===
+  static const Color coral = Color(0xFF00638E);       // Dark Azure
+  static const Color coralLight = Color(0xFFBFD8E3);  // Light Azure
+  static const Color coralMedium = Color(0xFF8CB9CC); // Mid Azure
+  static const Color coralDark = Color(0xFF004A6B);   // Deep Azure
 
-  // === SECONDARY: Sage Green ===
-  static const Color sage = Color(0xFF8FA87A);
-  static const Color sageLight = Color(0xFFEDF2E8);
-  static const Color sageMedium = Color(0xFFCAC597);
-  static const Color sageDark = Color(0xFF3E4F2C);
+  // === SECONDARY: Onyx/Charcoal (formerly Sage Green) ===
+  static const Color sage = Color(0xFF2B2B2B);        // Charcoal
+  static const Color sageLight = Color(0xFFE0E0E0);   // Gray Light
+  static const Color sageMedium = Color(0xFF9E9E9E);  // Gray Medium
+  static const Color sageDark = Color(0xFF141414);    // Onyx
 
-  // === TERTIARY: Steel Blue ===
+  // === TERTIARY: Steel Blue (Kept similar but aligned to Azure) ===
   static const Color blue = Color(0xFF6B87C7);
   static const Color blueLight = Color(0xFFE8EDF8);
   static const Color blueMedium = Color(0xFFA5B4E1);
   static const Color blueDark = Color(0xFF3A5299);
 
-  // === ACCENT: Forest Dark ===
-  static const Color forestDark = Color(0xFF3E4F2C);
-  static const Color forestMedium = Color(0xFF5A6E40);
-  static const Color forestLight = Color(0xFF8FA87A);
+  // === ACCENT: Forest Dark (now using Onyx/Dark Azure variants) ===
+  static const Color forestDark = Color(0xFF141414);  // Onyx
+  static const Color forestMedium = Color(0xFF2B2B2B); // Charcoal
+  static const Color forestLight = Color(0xFFBFD8E3);  // Light Azure
 
   // === SEMANTIC: Income / Expense / Transfer ===
   static const Color income = Color(0xFF4CAF81);       // Hijau sukses
@@ -59,19 +59,19 @@ class AppColors {
   static const LinearGradient coralGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFFF9A7E), Color(0xFFFD7F65)],
+    colors: [Color(0xFF8CB9CC), Color(0xFF00638E)], // Light Azure to Dark Azure
   );
 
   static const LinearGradient sageGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFFCAC597), Color(0xFF8FA87A)],
+    colors: [Color(0xFF2B2B2B), Color(0xFF141414)], // Charcoal to Onyx
   );
 
   static const LinearGradient forestGradient = LinearGradient(
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
-    colors: [Color(0xFF5A6E40), Color(0xFF3E4F2C)],
+    colors: [Color(0xFF004A6B), Color(0xFF000000)], // Branding Gradient
   );
 
   static const LinearGradient blueGradient = LinearGradient(

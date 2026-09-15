@@ -152,7 +152,7 @@ class _BiometricPromptDialogState extends State<_BiometricPromptDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: const Color(0xFF1B2A22),
+      backgroundColor: AppColors.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Padding(
         padding: const EdgeInsets.all(28.0),
@@ -161,13 +161,13 @@ class _BiometricPromptDialogState extends State<_BiometricPromptDialog> {
           children: [
             Text(
               'Otentikasi Sidik Jari',
-              style: AppTextStyles.h4.copyWith(color: Colors.white),
+              style: AppTextStyles.h4.copyWith(color: AppColors.textPrimary),
             ),
             const SizedBox(height: 8),
             Text(
               widget.reason,
               textAlign: TextAlign.center,
-              style: AppTextStyles.caption.copyWith(color: Colors.white70),
+              style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
             ),
             const SizedBox(height: 32),
 
@@ -183,23 +183,23 @@ class _BiometricPromptDialogState extends State<_BiometricPromptDialog> {
                   color: _isVerified
                       ? AppColors.sage.withValues(alpha: 0.25)
                       : _isScanning
-                          ? AppColors.coral.withValues(alpha: 0.3)
-                          : Colors.white.withValues(alpha: 0.08),
+                          ? AppColors.coral.withValues(alpha: 0.1)
+                          : AppColors.sageMedium.withValues(alpha: 0.1),
                   border: Border.all(
                     color: _isVerified
                         ? AppColors.sageLight
                         : _isScanning
                             ? AppColors.coral
-                            : Colors.white24,
+                            : AppColors.sageMedium.withValues(alpha: 0.3),
                     width: 2.5,
                   ),
                   boxShadow: [
                     BoxShadow(
                       color: _isVerified
-                          ? AppColors.sage.withValues(alpha: 0.4)
+                          ? AppColors.sage.withValues(alpha: 0.2)
                           : _isScanning
-                              ? AppColors.coral.withValues(alpha: 0.4)
-                              : Colors.black26,
+                              ? AppColors.coral.withValues(alpha: 0.2)
+                              : Colors.black12,
                       blurRadius: 20,
                       spreadRadius: 2,
                     ),
@@ -246,7 +246,7 @@ class _BiometricPromptDialogState extends State<_BiometricPromptDialog> {
               style: AppTextStyles.bodyMedium.copyWith(
                 color: _isVerified
                     ? AppColors.sageLight
-                    : Colors.white.withValues(alpha: 0.85),
+                    : AppColors.textPrimary,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -298,7 +298,7 @@ class _BiometricPromptDialogState extends State<_BiometricPromptDialog> {
                   child: Text(
                     'Gunakan PIN 4-Digit',
                     style: AppTextStyles.caption.copyWith(
-                      color: Colors.white70,
+                      color: AppColors.coral,
                       decoration: TextDecoration.underline,
                     ),
                   ),
@@ -308,7 +308,7 @@ class _BiometricPromptDialogState extends State<_BiometricPromptDialog> {
                   child: Text(
                     'Batal',
                     style: AppTextStyles.caption.copyWith(
-                      color: Colors.white54,
+                      color: AppColors.textSecondary,
                     ),
                   ),
                 ),
@@ -382,7 +382,7 @@ class _PinPadDialogState extends State<_PinPadDialog> {
   @override
   Widget build(BuildContext context) {
     return Dialog(
-      backgroundColor: const Color(0xFF1B2A22),
+      backgroundColor: AppColors.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
       child: Padding(
         padding: const EdgeInsets.all(24.0),
@@ -393,13 +393,13 @@ class _PinPadDialogState extends State<_PinPadDialog> {
             const SizedBox(height: 12),
             Text(
               widget.title,
-              style: AppTextStyles.h4.copyWith(color: Colors.white),
+              style: AppTextStyles.h4.copyWith(color: AppColors.textPrimary),
             ),
             const SizedBox(height: 6),
             Text(
               widget.subtitle,
               textAlign: TextAlign.center,
-              style: AppTextStyles.caption.copyWith(color: Colors.white70),
+              style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
             ),
             const SizedBox(height: 24),
 
@@ -416,11 +416,11 @@ class _PinPadDialogState extends State<_PinPadDialog> {
                     shape: BoxShape.circle,
                     color: index < _enteredPin.length
                         ? AppColors.coral
-                        : Colors.white24,
+                        : AppColors.sageMedium.withValues(alpha: 0.1),
                     border: Border.all(
                       color: index < _enteredPin.length
                           ? AppColors.coral
-                          : Colors.white38,
+                          : AppColors.sageMedium.withValues(alpha: 0.3),
                     ),
                   ),
                 ),
@@ -452,13 +452,13 @@ class _PinPadDialogState extends State<_PinPadDialog> {
                     IconButton(
                       onPressed: () => Navigator.pop(context, false),
                       icon: const Icon(Icons.close_rounded,
-                          color: Colors.white60),
+                          color: AppColors.textSecondary),
                     ),
                     _buildNumButton('0'),
                     IconButton(
                       onPressed: _onBackspace,
                       icon: const Icon(Icons.backspace_rounded,
-                          color: Colors.white60),
+                          color: AppColors.textSecondary),
                     ),
                   ],
                 ),
@@ -486,8 +486,8 @@ class _PinPadDialogState extends State<_PinPadDialog> {
         height: 60,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
-          color: Colors.white.withValues(alpha: 0.08),
-          border: Border.all(color: Colors.white12),
+          color: AppColors.sageMedium.withValues(alpha: 0.05),
+          border: Border.all(color: AppColors.sageMedium.withValues(alpha: 0.15)),
         ),
         child: Center(
           child: Text(
@@ -495,7 +495,7 @@ class _PinPadDialogState extends State<_PinPadDialog> {
             style: const TextStyle(
               fontSize: 22,
               fontWeight: FontWeight.bold,
-              color: Colors.white,
+              color: AppColors.textPrimary,
             ),
           ),
         ),

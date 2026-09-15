@@ -64,7 +64,7 @@ Router transactionsRouter() {
       final nextMonth = month == 12 ? DateTime(year + 1, 1) : DateTime(year, month + 1);
       final endMs = nextMonth.millisecondsSinceEpoch - 1;
 
-      final baseSql = 'SELECT COALESCE(SUM(base_amount),0) as t FROM transactions '
+      const baseSql = 'SELECT COALESCE(SUM(base_amount),0) as t FROM transactions '
           'WHERE user_uuid = ? AND type = ? AND date >= ? AND date <= ? AND deleted_at IS NULL';
       final inc = await Db.pool.query(baseSql, [userUuid, 'income', startMs, endMs]);
       final exp = await Db.pool.query(baseSql, [userUuid, 'expense', startMs, endMs]);

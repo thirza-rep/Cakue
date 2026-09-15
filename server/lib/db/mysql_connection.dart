@@ -12,6 +12,7 @@ class Db {
       userName: _env('MYSQL_USER', 'cakue_user'),
       password: _env('MYSQL_PASSWORD', 'cakue_password'),
       databaseName: _env('MYSQL_DB', 'cakue_db'),
+      collation: 'utf8mb4_unicode_ci', // Fixes emoji encoding issue (utf8mb4)
       maxConnections: 10,
     );
     return _pool!;

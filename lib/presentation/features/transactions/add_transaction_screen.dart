@@ -260,7 +260,7 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen>
         border: Border.all(color: theme.colorScheme.outlineVariant),
         boxShadow: [
           BoxShadow(
-            color: Colors.black.withOpacity(0.04),
+            color: Colors.black.withValues(alpha: 0.04),
             blurRadius: 16,
             offset: const Offset(0, 4),
           ),
@@ -376,14 +376,14 @@ class _AddTransactionScreenState extends ConsumerState<AddTransactionScreen>
         duration: const Duration(milliseconds: 200),
         decoration: BoxDecoration(
           gradient: isValid
-              ? LinearGradient(colors: [_typeColor.withOpacity(0.85), _typeColor])
+              ? LinearGradient(colors: [_typeColor.withValues(alpha: 0.85), _typeColor])
               : null,
           color: isValid ? null : AppColors.borderLight,
           borderRadius: BorderRadius.circular(AppRadius.xl),
           boxShadow: isValid
               ? [
                   BoxShadow(
-                    color: _typeColor.withOpacity(0.3),
+                    color: _typeColor.withValues(alpha: 0.3),
                     blurRadius: 16,
                     offset: const Offset(0, 6),
                   )
@@ -563,7 +563,7 @@ class _FormRow extends StatelessWidget {
               width: 40,
               height: 40,
               decoration: BoxDecoration(
-                color: iconColor.withOpacity(0.12),
+                color: iconColor.withValues(alpha: 0.12),
                 borderRadius: BorderRadius.circular(AppRadius.md),
               ),
               child: Icon(icon, color: iconColor, size: 18),

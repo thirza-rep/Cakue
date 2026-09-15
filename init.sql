@@ -1,5 +1,6 @@
 -- =============================================================================
 -- CAKUE DATABASE SCHEMA (MySQL 8.0)
+SET NAMES utf8mb4;
 -- =============================================================================
 
 CREATE DATABASE IF NOT EXISTS `cakue_db` CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

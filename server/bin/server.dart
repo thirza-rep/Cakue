@@ -3,12 +3,12 @@ import 'package:shelf/shelf.dart';
 import 'package:shelf/shelf_io.dart' as io;
 import 'package:shelf_router/shelf_router.dart';
 import 'package:shelf_cors_headers/shelf_cors_headers.dart';
-import '../lib/routes/accounts_routes.dart';
-import '../lib/routes/transactions_routes.dart';
-import '../lib/routes/categories_routes.dart';
-import '../lib/routes/users_routes.dart';
-import '../lib/routes/monthly_summaries_routes.dart';
-import '../lib/routes/budgets_routes.dart';
+import 'package:cakue_server/routes/accounts_routes.dart';
+import 'package:cakue_server/routes/transactions_routes.dart';
+import 'package:cakue_server/routes/categories_routes.dart';
+import 'package:cakue_server/routes/users_routes.dart';
+import 'package:cakue_server/routes/monthly_summaries_routes.dart';
+import 'package:cakue_server/routes/budgets_routes.dart';
 
 void main() async {
   final port = int.parse(Platform.environment['PORT'] ?? '8000');
@@ -29,7 +29,7 @@ void main() async {
         headers: {'Content-Type': 'application/json'});
   });
 
-  final handler = Pipeline()
+  final handler = const Pipeline()
       .addMiddleware(logRequests())
       .addMiddleware(corsHeaders(headers: {
         ACCESS_CONTROL_ALLOW_ORIGIN: '*',

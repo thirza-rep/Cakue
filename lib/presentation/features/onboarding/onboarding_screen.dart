@@ -4,6 +4,8 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:go_router/go_router.dart';
 import 'package:uuid/uuid.dart';
 
+import 'package:iconoir_flutter/iconoir_flutter.dart' as iconoir;
+
 import '../../../core/theme/app_colors.dart';
 import '../../../core/theme/app_text_styles.dart';
 import '../../../core/theme/app_spacing.dart';
@@ -23,43 +25,42 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
   late TabController _authTabController;
   int _currentPage = 0;
-  bool _isLoading = false;
 
   // Form Controllers for Register / Local Profile
   final TextEditingController _nameController =
       TextEditingController(text: 'Profil Utama');
   final TextEditingController _photoUrlController = TextEditingController();
-  String _selectedAvatarEmoji = '👤';
+  String _selectedAvatar = 'user';
 
-  final List<String> _avatarOptions = [
-    '👤',
-    '💳',
-    '💼',
-    '💎',
-    '🦊',
-    '👑',
-    '⭐',
-    '🛡️'
-  ];
+  final Map<String, Widget> _avatarOptions = {
+    'user': const iconoir.User(width: 24, height: 24),
+    'credit_card': const iconoir.CreditCard(width: 24, height: 24),
+    'home': const iconoir.Home(width: 24, height: 24),
+    'star': const iconoir.Star(width: 24, height: 24),
+    'crown': const iconoir.Crown(width: 24, height: 24),
+    'shield': const iconoir.Shield(width: 24, height: 24),
+    'heart': const iconoir.Heart(width: 24, height: 24),
+    'flash': const iconoir.Flash(width: 24, height: 24),
+  };
 
   final List<_OnboardingItem> _items = const [
     _OnboardingItem(
       badge: 'EASY TRACKING',
-      emoji: '💳',
+      icon: iconoir.CreditCard(color: AppColors.coral, width: 48, height: 48),
       title: 'Catat Keuangan\nSimple & Cepat',
       subtitle:
           'Pantau arus kas harian, transaksi pemasukan, dan pengeluaran kamu hanya dalam hitungan detik.',
     ),
     _OnboardingItem(
       badge: 'SMART ANALYTICS',
-      emoji: '📈',
+      icon: iconoir.GraphUp(color: AppColors.coral, width: 48, height: 48),
       title: 'Analitik & Budget\nLebih Terkontrol',
       subtitle:
           'Visualisasi grafik pengeluaran bulanan dan alokasi anggaran terstruktur untuk finansial sehat.',
     ),
     _OnboardingItem(
       badge: 'CROSS PLATFORM',
-      emoji: '🌐',
+      icon: iconoir.CloudSync(color: AppColors.coral, width: 48, height: 48),
       title: 'Multi Perangkat\n& Privasi Terjamin',
       subtitle:
           'Siap digunakan di Android, iOS, Windows, dan macOS dengan sistem keamanan privat terenkripsi.',
@@ -128,7 +129,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     String? googleAccountId,
     required String toastMessage,
   }) async {
-    setState(() => _isLoading = true);
+
 
     try {
       final userApi = ref.read(userApiProvider);
@@ -157,14 +158,14 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       }
     } finally {
       if (mounted) {
-        setState(() => _isLoading = false);
+
       }
     }
   }
 
   /// Fingerprint / Biometric Authentication
   Future<void> _handleBiometricAuth() async {
-    setState(() => _isLoading = true);
+
     try {
       final isAuthenticated = await BiometricAuthService.authenticate(
         context,
@@ -186,7 +187,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       );
     } finally {
       if (mounted) {
-        setState(() => _isLoading = false);
+
       }
     }
   }
@@ -214,7 +215,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
   /// Google OAuth Sign-In
   Future<void> _handleGoogleOAuth() async {
-    setState(() => _isLoading = true);
+
     try {
       await _createProfileAndComplete(
         name: 'Pengguna Google',
@@ -232,7 +233,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       );
     } finally {
       if (mounted) {
-        setState(() => _isLoading = false);
+
       }
     }
   }
@@ -248,7 +249,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
     }
 
     final photoUrl = _photoUrlController.text.trim();
-    final avatar = photoUrl.isNotEmpty ? photoUrl : _selectedAvatarEmoji;
+    final avatar = photoUrl.isNotEmpty ? photoUrl : _selectedAvatar;
 
     await _createProfileAndComplete(
       name: name,
@@ -275,7 +276,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
       builder: (ctx) => Container(
         padding: const EdgeInsets.all(AppSpacing.lg),
         decoration: const BoxDecoration(
-          color: Color(0xFF1B2A22),
+          color: AppColors.surface,
           borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
         ),
         child: Column(
@@ -287,7 +288,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 width: 40,
                 height: 4,
                 decoration: BoxDecoration(
-                  color: Colors.white24,
+                  color: AppColors.sageMedium.withValues(alpha: 0.5),
                   borderRadius: BorderRadius.circular(2),
                 ),
               ),
@@ -295,12 +296,12 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
             const SizedBox(height: 20),
             Text(
               '🔒 Masuk ke Aplikasi',
-              style: AppTextStyles.h4.copyWith(color: Colors.white),
+              style: AppTextStyles.h4.copyWith(color: AppColors.textPrimary),
             ),
             const SizedBox(height: 6),
             Text(
               'Pilih metode autentikasi yang kamu inginkan.',
-              style: AppTextStyles.caption.copyWith(color: Colors.white70),
+              style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
             ),
             const SizedBox(height: 24),
 
@@ -323,10 +324,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.fingerprint_rounded, size: 22),
+                    iconoir.FaceId(width: 22, height: 22),
                     SizedBox(width: 10),
                     Text(
-                      'Masuk dengan Sidik Jari',
+                      'Masuk dengan Biometrik',
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -346,18 +347,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                   _handleDevicePinAuth();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFF2D4436),
-                  foregroundColor: Colors.white,
-                  elevation: 2,
+                  backgroundColor: AppColors.surface,
+                  foregroundColor: AppColors.textPrimary,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
-                    side: const BorderSide(color: AppColors.sage, width: 1.2),
+                    side: const BorderSide(color: AppColors.sageMedium, width: 1.2),
                   ),
                 ),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Icon(Icons.pin_rounded, size: 22, color: AppColors.sageLight),
+                    iconoir.Dialpad(width: 22, height: 22),
                     SizedBox(width: 10),
                     Text(
                       'Masuk dengan PIN Device',
@@ -380,19 +381,21 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                   _handleGoogleOAuth();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.white,
-                  foregroundColor: Colors.black87,
+                  backgroundColor: AppColors.surface,
+                  foregroundColor: AppColors.textPrimary,
+                  elevation: 0,
                   shape: RoundedRectangleBorder(
                     borderRadius: BorderRadius.circular(14),
+                    side: const BorderSide(color: AppColors.sageMedium, width: 1.2),
                   ),
                 ),
                 child: const Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text('🔍', style: TextStyle(fontSize: 16)),
+                    iconoir.Google(width: 22, height: 22),
                     SizedBox(width: 10),
                     Text(
-                      'Masuk dengan Google OAuth',
+                      'Masuk dengan Google',
                       style: TextStyle(fontSize: 14, fontWeight: FontWeight.bold),
                     ),
                   ],
@@ -412,7 +415,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                 child: Text(
                   'Masuk sebagai Tamu',
                   style: AppTextStyles.labelMedium.copyWith(
-                    color: Colors.white70,
+                    color: AppColors.coral,
                     decoration: TextDecoration.underline,
                   ),
                 ),
@@ -440,7 +443,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
             child: Container(
               padding: const EdgeInsets.all(AppSpacing.lg),
               decoration: const BoxDecoration(
-                color: Color(0xFF1B2A22),
+                color: AppColors.surface,
                 borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
               ),
               child: Column(
@@ -452,7 +455,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                       width: 40,
                       height: 4,
                       decoration: BoxDecoration(
-                        color: Colors.white24,
+                        color: AppColors.sageMedium.withValues(alpha: 0.5),
                         borderRadius: BorderRadius.circular(2),
                       ),
                     ),
@@ -460,37 +463,37 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                   const SizedBox(height: 20),
                   Text(
                     '👤 Buat Profil & Daftar',
-                    style: AppTextStyles.h4.copyWith(color: Colors.white),
+                    style: AppTextStyles.h4.copyWith(color: AppColors.textPrimary),
                   ),
                   const SizedBox(height: 6),
                   Text(
                     'Data profil akan disimpan secara privat di perangkat.',
-                    style: AppTextStyles.caption.copyWith(color: Colors.white70),
+                    style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
                   ),
                   const SizedBox(height: 20),
 
                   // Name Input
                   Text(
                     'Nama Profil',
-                    style: AppTextStyles.labelSmall.copyWith(color: Colors.white70),
+                    style: AppTextStyles.labelSmall.copyWith(color: AppColors.textSecondary),
                   ),
                   const SizedBox(height: 6),
                   TextField(
                     controller: _nameController,
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
+                    style: const TextStyle(color: AppColors.textPrimary, fontSize: 14),
                     decoration: InputDecoration(
                       hintText: 'Masukkan nama pengguna...',
-                      hintStyle: const TextStyle(color: Colors.white38),
+                      hintStyle: TextStyle(color: AppColors.sageMedium.withValues(alpha: 0.7)),
                       filled: true,
-                      fillColor: Colors.black26,
+                      fillColor: AppColors.sageLight.withValues(alpha: 0.3),
                       contentPadding: const EdgeInsets.symmetric(horizontal: 14),
                       border: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.white24),
+                        borderSide: BorderSide(color: AppColors.sageMedium.withValues(alpha: 0.3)),
                       ),
                       enabledBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
-                        borderSide: const BorderSide(color: Colors.white24),
+                        borderSide: BorderSide(color: AppColors.sageMedium.withValues(alpha: 0.3)),
                       ),
                       focusedBorder: OutlineInputBorder(
                         borderRadius: BorderRadius.circular(12),
@@ -503,37 +506,99 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
                   // Avatar Options
                   Text(
-                    'Avatar atau Foto Profil',
-                    style: AppTextStyles.labelSmall.copyWith(color: Colors.white70),
+                    'Pilih Avatar',
+                    style: AppTextStyles.labelSmall.copyWith(color: AppColors.textSecondary),
                   ),
                   const SizedBox(height: 8),
                   Wrap(
                     spacing: 10,
                     runSpacing: 10,
-                    children: _avatarOptions.map((emoji) {
-                      final isSelected = _selectedAvatarEmoji == emoji;
+                    children: _avatarOptions.entries.map((entry) {
+                      final isSelected = _selectedAvatar == entry.key;
                       return GestureDetector(
                         onTap: () {
                           setModalState(() {
-                            _selectedAvatarEmoji = emoji;
+                            _selectedAvatar = entry.key;
                           });
                         },
                         child: Container(
-                          padding: const EdgeInsets.all(10),
+                          padding: const EdgeInsets.all(12),
                           decoration: BoxDecoration(
                             color: isSelected
-                                ? AppColors.coral.withValues(alpha: 0.3)
-                                : Colors.white.withValues(alpha: 0.08),
+                                ? AppColors.coral.withValues(alpha: 0.1)
+                                : AppColors.surface,
                             shape: BoxShape.circle,
                             border: Border.all(
-                              color: isSelected ? AppColors.coral : Colors.white24,
+                              color: isSelected ? AppColors.coral : AppColors.sageMedium.withValues(alpha: 0.3),
                               width: 1.5,
                             ),
                           ),
-                          child: Text(emoji, style: const TextStyle(fontSize: 22)),
+                          child: IconTheme(
+                            data: IconThemeData(
+                              color: isSelected ? AppColors.coral : AppColors.sageMedium,
+                            ),
+                            child: entry.value,
+                          ),
                         ),
                       );
                     }).toList(),
+                  ),
+
+                  const SizedBox(height: 24),
+                  
+                  // Divider
+                  Row(
+                    children: [
+                      Expanded(child: Divider(color: AppColors.sageMedium.withValues(alpha: 0.3))),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: Text(
+                          'Atau daftar dengan',
+                          style: AppTextStyles.caption.copyWith(color: AppColors.textSecondary),
+                        ),
+                      ),
+                      Expanded(child: Divider(color: AppColors.sageMedium.withValues(alpha: 0.3))),
+                    ],
+                  ),
+                  const SizedBox(height: 16),
+
+                  // Security & OAuth Buttons
+                  Row(
+                    children: [
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                            _handleGoogleOAuth();
+                          },
+                          icon: const iconoir.Google(width: 18, height: 18),
+                          label: const Text('Google', style: TextStyle(fontSize: 13)),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: AppColors.textPrimary,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            side: BorderSide(color: AppColors.sageMedium.withValues(alpha: 0.3)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          ),
+                        ),
+                      ),
+                      const SizedBox(width: 10),
+                      Expanded(
+                        child: OutlinedButton.icon(
+                          onPressed: () {
+                            Navigator.pop(ctx);
+                            _handleBiometricAuth();
+                          },
+                          icon: const iconoir.FaceId(width: 18, height: 18),
+                          label: const Text('Biometrik', style: TextStyle(fontSize: 13)),
+                          style: OutlinedButton.styleFrom(
+                            foregroundColor: AppColors.textPrimary,
+                            padding: const EdgeInsets.symmetric(vertical: 12),
+                            side: BorderSide(color: AppColors.sageMedium.withValues(alpha: 0.3)),
+                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
 
                   const SizedBox(height: 24),
@@ -555,7 +620,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                         ),
                       ),
                       child: const Text(
-                        'Daftar & Masuk',
+                        'Simpan Profil',
                         style: TextStyle(
                           fontSize: 15,
                           fontWeight: FontWeight.bold,
@@ -576,17 +641,10 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: AppColors.forestDark,
+      backgroundColor: AppColors.surface,
       body: Container(
         decoration: const BoxDecoration(
-          gradient: LinearGradient(
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
-            colors: [
-              Color(0xFF1E3A2B),
-              Color(0xFF0D2218),
-            ],
-          ),
+          color: AppColors.surface,
         ),
         child: SafeArea(
           child: Column(
@@ -606,18 +664,18 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                           width: 36,
                           height: 36,
                           decoration: BoxDecoration(
-                            color: Colors.white.withValues(alpha: 0.15),
+                            color: AppColors.coralLight.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: const Center(
-                            child: Text('🥐', style: TextStyle(fontSize: 20)),
+                            child: Icon(Icons.account_balance_wallet_rounded, color: AppColors.coral, size: 20),
                           ),
                         ),
                         const SizedBox(width: 10),
                         Text(
                           'Cakue',
                           style: AppTextStyles.h4.copyWith(
-                            color: Colors.white,
+                            color: AppColors.textPrimary,
                             fontWeight: FontWeight.bold,
                             letterSpacing: 0.5,
                           ),
@@ -629,8 +687,8 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                         OutlinedButton(
                           onPressed: _showLoginBottomSheet,
                           style: OutlinedButton.styleFrom(
-                            foregroundColor: Colors.white,
-                            side: const BorderSide(color: Colors.white38),
+                            foregroundColor: AppColors.coral,
+                            side: BorderSide(color: AppColors.coral.withValues(alpha: 0.5)),
                             padding: const EdgeInsets.symmetric(
                                 horizontal: 14, vertical: 8),
                             shape: RoundedRectangleBorder(
@@ -699,25 +757,22 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                               width: 125,
                               height: 125,
                               decoration: BoxDecoration(
-                                color: Colors.white.withValues(alpha: 0.08),
+                                color: AppColors.coralLight.withValues(alpha: 0.2),
                                 shape: BoxShape.circle,
                                 border: Border.all(
-                                  color: Colors.white.withValues(alpha: 0.15),
+                                  color: AppColors.coralLight.withValues(alpha: 0.5),
                                   width: 1.5,
                                 ),
                                 boxShadow: [
                                   BoxShadow(
-                                    color: Colors.black.withValues(alpha: 0.25),
+                                    color: AppColors.coralDark.withValues(alpha: 0.05),
                                     blurRadius: 24,
                                     offset: const Offset(0, 8),
                                   ),
                                 ],
                               ),
                               child: Center(
-                                child: Text(
-                                  item.emoji,
-                                  style: const TextStyle(fontSize: 56),
-                                ),
+                                child: item.icon,
                               ),
                             ).animate().fadeIn().scale(
                                   duration: 500.ms,
@@ -733,16 +788,16 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                                 vertical: 6,
                               ),
                               decoration: BoxDecoration(
-                                color: AppColors.coral.withValues(alpha: 0.2),
+                                color: AppColors.coralLight.withValues(alpha: 0.4),
                                 borderRadius: BorderRadius.circular(20),
                                 border: Border.all(
-                                  color: AppColors.coral.withValues(alpha: 0.4),
+                                  color: AppColors.coral.withValues(alpha: 0.2),
                                 ),
                               ),
                               child: Text(
                                 item.badge,
                                 style: AppTextStyles.caption.copyWith(
-                                  color: AppColors.coralLight,
+                                  color: AppColors.coral,
                                   fontWeight: FontWeight.bold,
                                   letterSpacing: 1.2,
                                 ),
@@ -756,7 +811,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                               item.title,
                               textAlign: TextAlign.center,
                               style: AppTextStyles.h2.copyWith(
-                                color: Colors.white,
+                                color: AppColors.textPrimary,
                                 height: 1.25,
                               ),
                             ).animate().fadeIn(delay: 250.ms).slideY(begin: 0.2),
@@ -768,7 +823,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                               item.subtitle,
                               textAlign: TextAlign.center,
                               style: AppTextStyles.bodyMedium.copyWith(
-                                color: Colors.white.withValues(alpha: 0.75),
+                                color: AppColors.textSecondary,
                                 height: 1.5,
                               ),
                             ).animate().fadeIn(delay: 350.ms),
@@ -800,7 +855,7 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                           decoration: BoxDecoration(
                             color: _currentPage == index
                                 ? AppColors.coral
-                                : Colors.white24,
+                                : AppColors.coralLight.withValues(alpha: 0.3),
                             borderRadius: BorderRadius.circular(4),
                           ),
                         ),
@@ -842,15 +897,17 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
                             child: OutlinedButton(
                               onPressed: _showRegisterBottomSheet,
                               style: OutlinedButton.styleFrom(
-                                foregroundColor: Colors.white,
-                                side: const BorderSide(
-                                    color: Colors.white54, width: 1.5),
+                                foregroundColor: AppColors.coral,
+                                side: BorderSide(
+                                  color: AppColors.coral.withValues(alpha: 0.5),
+                                  width: 1.5,
+                                ),
                                 shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(14),
                                 ),
                               ),
                               child: const Text(
-                                'Daftar (Register)',
+                                'Buat Profil',
                                 style: TextStyle(
                                   fontSize: 15,
                                   fontWeight: FontWeight.bold,
@@ -888,13 +945,13 @@ class _OnboardingScreenState extends ConsumerState<OnboardingScreen>
 
 class _OnboardingItem {
   final String badge;
-  final String emoji;
+  final Widget icon;
   final String title;
   final String subtitle;
 
   const _OnboardingItem({
     required this.badge,
-    required this.emoji,
+    required this.icon,
     required this.title,
     required this.subtitle,
   });

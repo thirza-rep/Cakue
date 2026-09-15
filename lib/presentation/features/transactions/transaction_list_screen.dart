@@ -125,7 +125,7 @@ class _TransactionListScreenState
                       children: [
                         const Text('📭', style: TextStyle(fontSize: 48)),
                         const SizedBox(height: 16),
-                        Text('Tidak ada transaksi', style: AppTextStyles.h6),
+                        const Text('Tidak ada transaksi', style: AppTextStyles.h6),
                         const SizedBox(height: 4),
                         Text(
                           _searchQuery.isNotEmpty

@@ -78,7 +78,7 @@ class MainShell extends ConsumerWidget {
         color: navBg,
         boxShadow: [
           BoxShadow(
-            color: isDark ? Colors.black.withOpacity(0.3) : Colors.black.withOpacity(0.06),
+            color: isDark ? Colors.black.withValues(alpha: 0.3) : Colors.black.withValues(alpha: 0.06),
             blurRadius: 20,
             offset: const Offset(0, -4),
           ),
@@ -110,7 +110,7 @@ class MainShell extends ConsumerWidget {
                         ),
                         decoration: BoxDecoration(
                           color: isSelected
-                              ? (isDark ? AppColors.coralDark.withOpacity(0.35) : AppColors.coralLight)
+                              ? (isDark ? AppColors.coralDark.withValues(alpha: 0.35) : AppColors.coralLight)
                               : Colors.transparent,
                           borderRadius: BorderRadius.circular(20),
                         ),
